@@ -1,9 +1,20 @@
 <script setup>
+import AppFooter from '~/components/AppFooter.vue';
+import AppHeader from '~/components/AppHeader.vue';
 import HelloWorld from '~/components/HelloWorld.vue';
 </script>
 
 <template>
-  <div>
+  <AppHeader />
+  <main class="container py-5">
     <HelloWorld msg="Hello, World!" />
-  </div>
+  </main>
+  <AppFooter />
 </template>
+
+<style lang="scss" scoped>
+main {
+  margin-top: 56px;
+  margin-bottom: 40px;
+}
+</style>
