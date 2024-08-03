@@ -6,7 +6,7 @@ export default [
   { files: ['**/*.{js,mjs,cjs,vue}'] },
   { languageOptions: { globals: { ...globals.browser, ...globals.node } } },
   pluginJs.configs.recommended,
-  ...pluginVue.configs['flat/essential'],
+  ...pluginVue.configs['flat/recommended'],
   {
     rules: {
       'comma-dangle': ['error', 'always-multiline'],
