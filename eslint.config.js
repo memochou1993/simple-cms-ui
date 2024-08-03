@@ -4,7 +4,7 @@ import globals from 'globals';
 
 export default [
   { files: ['**/*.{js,mjs,cjs,vue}'] },
-  { languageOptions: { globals: globals.browser } },
+  { languageOptions: { globals: { ...globals.browser, ...globals.node } } },
   pluginJs.configs.recommended,
   ...pluginVue.configs['flat/essential'],
   {
