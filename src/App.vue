@@ -1,13 +1,12 @@
 <script setup>
 import AppFooter from '@/components/AppFooter.vue';
 import AppHeader from '@/components/AppHeader.vue';
-import HelloWorld from '@/components/HelloWorld.vue';
 </script>
 
 <template>
   <AppHeader />
   <main class="container py-5">
-    <HelloWorld msg="Hello, World!" />
+    <RouterView />
   </main>
   <AppFooter />
 </template>
