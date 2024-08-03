@@ -1,3 +1,20 @@
+<script setup>
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+
+const links = [
+  {
+    title: 'Home',
+    name: 'home',
+  },
+  {
+    title: 'About',
+    name: 'about',
+  },
+];
+</script>
+
 <template>
   <nav class="navbar navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
@@ -39,24 +56,26 @@
         </div>
         <div class="offcanvas-body">
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-            <li class="nav-item">
-              <RouterLink
-                class="nav-link active"
-                aria-current="page"
-                to="/"
+            <template
+              v-for="(link, i) in links"
+              :key="i"
+            >
+              <li
+                class="nav-item"
               >
-                Home
-              </RouterLink>
-            </li>
-            <li class="nav-item">
-              <RouterLink
-                class="nav-link"
-                aria-current="page"
-                to="/about"
-              >
-                About
-              </RouterLink>
-            </li>
+                <router-link
+                  class="nav-link"
+                  :class="{
+                    'active': link.name === route.name,
+                  }"
+                  :to="{
+                    name: link.name,
+                  }"
+                >
+                  {{ link.title }}
+                </router-link>
+              </li>
+            </template>
           </ul>
         </div>
       </div>
