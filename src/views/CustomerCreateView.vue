@@ -1,4 +1,5 @@
 <script setup>
+import CustomerForm from '@/components/CustomerForm.vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -30,19 +31,5 @@ const createCustomer = () => {
       </button>
     </div>
   </div>
-  <form class="border p-3">
-    <div class="mb-3">
-      <label
-        for="name"
-        class="form-label"
-      >
-        Name
-      </label>
-      <input
-        id="name"
-        type="text"
-        class="form-control"
-      >
-    </div>
-  </form>
+  <CustomerForm />
 </template>
