@@ -19,6 +19,16 @@ const router = createRouter({
       name: 'customer-list',
       component: () => import('@/views/CustomerListView.vue'),
     },
+    {
+      path: '/customers/create',
+      name: 'customer-create',
+      component: () => import('@/views/CustomerCreateView.vue'),
+    },
+    {
+      path: '/customers/:id/edit',
+      name: 'customer-edit',
+      component: () => import('@/views/CustomerEditView.vue'),
+    },
   ],
 });
 
