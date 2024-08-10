@@ -1,16 +1,48 @@
 <script setup>
 import CustomerForm from '@/components/CustomerForm.vue';
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { reactive, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
+const route = useRoute();
 const router = useRouter();
 
 const form = ref();
 
-const updateCustomer = () => {
-  // TODO
-  console.log(form.value.validateForm());
+const state = reactive({
+  customer: {},
+});
+
+const updateCustomer = async () => {
+  if (!form.value.validateForm()) return;
+
+  try {
+    await fetch(`http://localhost:3000/api/customers/${route.params.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(form.value.formData),
+    });
+    router.push({ name: 'customer-list' });
+  } catch (err) {
+    console.error(err);
+  }
 };
+
+(async () => {
+  try {
+    const response = await fetch(`http://localhost:3000/api/customers/${route.params.id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = await response.json();
+    state.customer = data;
+  } catch (err) {
+    console.error(err);
+  }
+})();
 </script>
 
 <template>
@@ -35,5 +67,8 @@ const updateCustomer = () => {
       </button>
     </div>
   </div>
-  <CustomerForm ref="form" />
+  <CustomerForm
+    ref="form"
+    v-model:form-data="state.customer"
+  />
 </template>

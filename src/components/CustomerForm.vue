@@ -1,6 +1,11 @@
 <script setup>
 import { ref } from 'vue';
 
+const formData = defineModel('formData', {
+  type: Object,
+  default: () => ({}),
+});
+
 const form = ref();
 
 const validateField = (e) => {
@@ -16,6 +21,7 @@ const validateForm = () => {
 
 defineExpose({
   validateForm,
+  formData,
 });
 </script>
 
@@ -33,6 +39,7 @@ defineExpose({
       </label>
       <input
         id="name"
+        v-model="formData.name"
         type="text"
         class="form-control"
         required

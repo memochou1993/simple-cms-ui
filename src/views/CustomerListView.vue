@@ -1,14 +1,12 @@
 <script setup>
-import { ref } from 'vue';
+import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
-const customers = ref([
-  { id: 1, name: 'Alice' },
-  { id: 2, name: 'Bob' },
-  { id: 3, name: 'Charlie' },
-]);
+const state = reactive({
+  customers: [],
+});
 
 const createCustomer = () => {
   router.push({ name: 'customer-create' });
@@ -18,10 +16,34 @@ const updateCustomer = (id) => {
   router.push({ name: 'customer-edit', params: { id } });
 };
 
-const deleteCustomer = (id) => {
-  const index = customers.value.findIndex(customer => customer.id === id);
-  customers.value.splice(index, 1);
+const deleteCustomer = async (id) => {
+  try {
+    await fetch(`http://localhost:3000/api/customers/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    state.customers = state.customers.filter((customer) => customer.id !== id);
+  } catch (err) {
+    console.error(err);
+  }
 };
+
+(async () => {
+  try {
+    const response = await fetch('http://localhost:3000/api/customers', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = await response.json();
+    state.customers = data;
+  } catch (err) {
+    console.error(err);
+  }
+})();
 </script>
 
 <template>
@@ -55,7 +77,7 @@ const deleteCustomer = (id) => {
     </thead>
     <tbody>
       <tr
-        v-for="customer in customers"
+        v-for="customer in state.customers"
         :key="customer.id"
       >
         <td>
