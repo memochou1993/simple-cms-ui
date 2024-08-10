@@ -1,4 +1,5 @@
 <script setup>
+import { customer } from '@/api';
 import CustomerForm from '@/components/CustomerForm.vue';
 import { reactive, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -16,13 +17,7 @@ const updateCustomer = async () => {
   if (!form.value.validateForm()) return;
 
   try {
-    await fetch(`http://localhost:3000/api/customers/${route.params.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(form.value.formData),
-    });
+    await customer.update(route.params.id, form.value.formData);
     router.push({ name: 'customer-list' });
   } catch (err) {
     console.error(err);
@@ -31,14 +26,7 @@ const updateCustomer = async () => {
 
 (async () => {
   try {
-    const response = await fetch(`http://localhost:3000/api/customers/${route.params.id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const data = await response.json();
-    state.customer = data;
+    state.customer = await customer.get(route.params.id);
   } catch (err) {
     console.error(err);
   }

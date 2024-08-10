@@ -1,4 +1,5 @@
 <script setup>
+import { customer } from '@/api';
 import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -18,12 +19,7 @@ const updateCustomer = (id) => {
 
 const deleteCustomer = async (id) => {
   try {
-    await fetch(`http://localhost:3000/api/customers/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    await customer.destroy(id);
     state.customers = state.customers.filter((customer) => customer.id !== id);
   } catch (err) {
     console.error(err);
@@ -32,14 +28,7 @@ const deleteCustomer = async (id) => {
 
 (async () => {
   try {
-    const response = await fetch('http://localhost:3000/api/customers', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const data = await response.json();
-    state.customers = data;
+    state.customers = await customer.list();
   } catch (err) {
     console.error(err);
   }
