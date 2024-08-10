@@ -1,5 +1,7 @@
+const { VITE_API_URL } = import.meta.env;
+
 const list = async () => {
-  const response = await fetch('http://localhost:3000/api/customers', {
+  const response = await fetch(`${VITE_API_URL}/api/customers`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -9,7 +11,7 @@ const list = async () => {
 };
 
 const create = async (data) => {
-  const response = await fetch('http://localhost:3000/api/customers', {
+  const response = await fetch(`${VITE_API_URL}/api/customers`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -20,7 +22,7 @@ const create = async (data) => {
 };
 
 const get = async (id) => {
-  const response = await fetch(`http://localhost:3000/api/customers/${id}`, {
+  const response = await fetch(`${VITE_API_URL}/api/customers/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -30,7 +32,7 @@ const get = async (id) => {
 };
 
 const update = async (id, data) => {
-  const response = await fetch(`http://localhost:3000/api/customers/${id}`, {
+  const response = await fetch(`${VITE_API_URL}/api/customers/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -41,7 +43,7 @@ const update = async (id, data) => {
 };
 
 const destroy = async (id) => {
-  await fetch(`http://localhost:3000/api/customers/${id}`, {
+  await fetch(`${VITE_API_URL}/api/customers/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
