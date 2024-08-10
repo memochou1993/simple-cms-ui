@@ -1,54 +1,33 @@
+import axios from 'axios';
+
 const { VITE_API_URL } = import.meta.env;
 
+const client = axios.create({
+  baseURL: VITE_API_URL,
+});
+
 const list = async () => {
-  const response = await fetch(`${VITE_API_URL}/api/customers`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  return await response.json();
+  const response = await client.get('/api/customers');
+  return response.data;
 };
 
 const create = async (data) => {
-  const response = await fetch(`${VITE_API_URL}/api/customers`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  });
-  return await response.json();
+  const response = await client.post('/api/customers', data);
+  return response.data;
 };
 
 const get = async (id) => {
-  const response = await fetch(`${VITE_API_URL}/api/customers/${id}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  return await response.json();
+  const response = await client.get(`/api/customers/${id}`);
+  return response.data;
 };
 
 const update = async (id, data) => {
-  const response = await fetch(`${VITE_API_URL}/api/customers/${id}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  });
-  return await response.json();
+  const response = await client.put(`/api/customers/${id}`, data);
+  return response.data;
 };
 
 const destroy = async (id) => {
-  await fetch(`${VITE_API_URL}/api/customers/${id}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+  await client.delete(`/api/customers/${id}`);
 };
 
 export {
