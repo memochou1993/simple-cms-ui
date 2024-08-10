@@ -1,11 +1,15 @@
 <script setup>
 import CustomerForm from '@/components/CustomerForm.vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
+const form = ref();
+
 const createCustomer = () => {
   // TODO
+  console.log(form.value.validateForm());
 };
 </script>
 
@@ -31,5 +35,5 @@ const createCustomer = () => {
       </button>
     </div>
   </div>
-  <CustomerForm />
+  <CustomerForm ref="form" />
 </template>

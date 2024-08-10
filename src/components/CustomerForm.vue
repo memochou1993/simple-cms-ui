@@ -1,5 +1,29 @@
+<script setup>
+import { ref } from 'vue';
+
+const form = ref();
+
+const validateField = (e) => {
+  const { target } = e;
+  target.classList.toggle('is-valid', target.checkValidity());
+  target.classList.toggle('is-invalid', !target.checkValidity());
+};
+
+const validateForm = () => {
+  form.value.classList.add('was-validated');
+  return form.value.checkValidity();
+};
+
+defineExpose({
+  validateForm,
+});
+</script>
+
 <template>
-  <form class="border p-3">
+  <form
+    ref="form"
+    class="border p-3"
+  >
     <div class="mb-3">
       <label
         for="name"
@@ -11,7 +35,12 @@
         id="name"
         type="text"
         class="form-control"
+        required
+        @input="validateField"
       >
+      <div class="invalid-feedback">
+        Please provide a valid name.
+      </div>
     </div>
   </form>
 </template>
