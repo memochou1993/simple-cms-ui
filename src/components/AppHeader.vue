@@ -1,4 +1,7 @@
 <script setup>
+import { auth } from '@/firebase';
+import * as bootstrap from 'bootstrap';
+import { reactive } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
@@ -16,7 +19,22 @@ const links = [
     title: 'About',
     name: 'about',
   },
+  {
+    title: 'Sign Out',
+    name: 'sign-out',
+  },
 ];
+
+const state = reactive({
+  user: null,
+});
+
+auth.onAuthStateChanged((user) => {
+  state.user = user;
+  if (!user) {
+    bootstrap.Offcanvas.getOrCreateInstance('#offcanvasDarkNavbar').hide();
+  }
+});
 </script>
 
 <template>
@@ -29,6 +47,7 @@ const links = [
         Simple CMS
       </a>
       <button
+        v-if="state.user"
         class="navbar-toggler"
         type="button"
         data-bs-toggle="offcanvas"
