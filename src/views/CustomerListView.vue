@@ -6,6 +6,9 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 
 const state = reactive({
+  /**
+   * @type {import('@/models').Customer[]}
+   */
   customers: [],
 });
 

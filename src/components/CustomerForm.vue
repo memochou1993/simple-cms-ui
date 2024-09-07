@@ -1,6 +1,9 @@
 <script setup>
 import { ref } from 'vue';
 
+/**
+ * @type {import('@/models').Customer}
+ */
 const formData = defineModel('formData', {
   type: Object,
   default: () => ({}),
