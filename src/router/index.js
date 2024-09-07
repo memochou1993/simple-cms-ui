@@ -34,7 +34,7 @@ const router = createRouter({
       name: 'sign-out',
       component: () => import('@/views/SignOut.vue'),
       meta: {
-        requiresAuth: true,
+        requiresAuth: false,
       },
     },
     {
