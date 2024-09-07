@@ -13,7 +13,7 @@ const state = reactive({
 const submit = async () => {
   try {
     await auth.signUp(state.formData);
-    router.push({ name: 'sign-in' });
+    router.push({ name: 'home' });
   } catch (err) {
     alert(err);
   }
