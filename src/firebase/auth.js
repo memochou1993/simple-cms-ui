@@ -21,3 +21,5 @@ export const getCurrentUser = () => {
     });
   });
 };
+
+export const getIdToken = () => auth.currentUser.getIdToken();

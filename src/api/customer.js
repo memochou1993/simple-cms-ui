@@ -1,10 +1,27 @@
+import { getIdToken } from '@/firebase/auth';
 import { Customer } from '@/models';
+import router from '@/router';
 import axios from 'axios';
 
 const { VITE_API_URL } = import.meta.env;
 
 const client = axios.create({
   baseURL: VITE_API_URL,
+});
+
+client.interceptors.request.use(async (config) => {
+  const token = await getIdToken();
+  config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+
+client.interceptors.response.use((response) => {
+  return response;
+}, (error) => {
+  if (error.response.status === 401) {
+    router.push({ name: 'sign-out' });
+  }
+  return Promise.reject(error);
 });
 
 /**
